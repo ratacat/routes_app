@@ -6,10 +6,15 @@ class PlanesController < ApplicationController
 	def new
 		render :new
 	end
+	def show
+		id = params[:id]
+		@plane = Plane.find(id)
+		render :show
+	end
 	def create
 		plane = params.require(:plane).permit(:name, :design, :description)
-		Plane.create(plane)
-		redirect_to "/planes"
+		plane = Plane.create(plane)
+		redirect_to "/planes/#{plane.id}"
 	end
 end
 
